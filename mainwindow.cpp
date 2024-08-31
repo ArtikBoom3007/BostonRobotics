@@ -45,9 +45,9 @@ void MainWindow::setupTable()
 	thetaTable->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
 	for (int i = 0; i < 6; ++i) {
-		thetaTable->setItem(i, 1, new QTableWidgetItem(QString::number(param::a[i])));
-		thetaTable->setItem(i, 2, new QTableWidgetItem(QString::number(param::d[i])));
-		thetaTable->setItem(i, 3, new QTableWidgetItem(QString::number(param::alpha[i])));
+		thetaTable->setItem(i, 1, new QTableWidgetItem(QString::number(param::rb1.a[i])));
+		thetaTable->setItem(i, 2, new QTableWidgetItem(QString::number(param::rb1.d[i])));
+		thetaTable->setItem(i, 3, new QTableWidgetItem(QString::number(param::rb1.alpha[i])));
 		
 		for (int j = 1; j <= 3; ++j) {
 			thetaTable->item(i, j)->setFlags(thetaTable->item(i, j)->flags() & ~Qt::ItemIsEditable);
@@ -57,10 +57,10 @@ void MainWindow::setupTable()
 
 void MainWindow::calculateForward() {
 	for (int i = 0; i < 6; ++i) {
-		param::theta[i] = thetaTable->item(i, 0) ? thetaTable->item(i, 0)->text().toDouble() : 0.0;
+		param::rb1.theta[i] = thetaTable->item(i, 0) ? thetaTable->item(i, 0)->text().toDouble() : 0.0;
 	}
 	
-	Eigen::Vector3d result = Kinematics::instance().forwardTransform();
+	Eigen::Vector3d result = Kinematics::instance().forwardTransform(param::rb1);
 	resultLabel->setText(QString("Result: x = %1, y = %2, z = %3")
 							.arg(result.x())
 							.arg(result.y())
@@ -69,10 +69,10 @@ void MainWindow::calculateForward() {
 
 void MainWindow::validateThetaInput(QTableWidgetItem *item) {
 	if (item->column() == 0) {
-		bool ok;
-		item->text().toDouble(&ok);
+		bool valid;
+		item->text().toDouble(&valid);
 		
-		if (!ok) {
+		if (!valid) {
 			QMessageBox::warning(this, "Invalid Input", "Please enter a valid number for Theta.");
 			item->setText("0"); 
 		}

@@ -2,6 +2,7 @@
 #define KINEMATICS_H
 
 #include <Eigen/Dense>
+#include "parameters.h"
 
 class Kinematics
 {
@@ -10,7 +11,7 @@ public:
 		static Kinematics c;
 		return c;
 	};
-	Eigen::Vector3d forwardTransform();
+	Eigen::Vector3d forwardTransform(param::Robot &rb);
 	
 private:
 	Kinematics() {};

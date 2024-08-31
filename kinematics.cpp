@@ -1,12 +1,11 @@
 #include "kinematics.h"
-#include "parameters.h"
 
-Eigen::Vector3d Kinematics::forwardTransform()
+Eigen::Vector3d Kinematics::forwardTransform(param::Robot &rb)
 {
 	Eigen::Matrix4d T = Eigen::Matrix4d::Identity();
 
 	for (int i = 0; i < 6; ++i) {
-		T = T * T_matrix(param::theta[i] * M_PI / 180.0, param::a[i], param::d[i], param::alpha[i]);
+		T = T * T_matrix(rb.theta[i] * M_PI / 180.0, rb.a[i], rb.d[i], rb.alpha[i]);
 	}
 
 	Eigen::Vector3d position = T.block<3, 1>(0, 3);
