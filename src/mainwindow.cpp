@@ -16,11 +16,10 @@ MainWindow::MainWindow(QWidget *parent):
 	QVBoxLayout *layout = new QVBoxLayout(centralWidget);
 
 	thetaTable = new QTableWidget(6, 4, this);
-	thetaTable->setHorizontalHeaderLabels({"Theta (deg)", "a(m)", "d(m)", "alpha(rad)"});
-	thetaTable->verticalHeader()->setVisible(true);
-	layout->addWidget(thetaTable);
 	
 	setupTable();
+	
+	layout->addWidget(thetaTable);
 	
 	QPushButton *calcButton = new QPushButton("Calculate", this);
 	layout->addWidget(calcButton);
@@ -38,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent):
 
 void MainWindow::setupTable()
 {
+	thetaTable->setHorizontalHeaderLabels({"Theta (deg)", "a(m)", "d(m)", "alpha(rad)"});
+	thetaTable->verticalHeader()->setVisible(true);
 	thetaTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	thetaTable->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	thetaTable->setMinimumHeight(214);
@@ -55,7 +56,8 @@ void MainWindow::setupTable()
 	}
 }
 
-void MainWindow::calculateForward() {
+void MainWindow::calculateForward()
+{
 	for (int i = 0; i < 6; ++i) {
 		param::rb1.theta[i] = thetaTable->item(i, 0) ? thetaTable->item(i, 0)->text().toDouble() : 0.0;
 	}

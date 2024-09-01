@@ -7,7 +7,8 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	MainWindow w;
-
+	
+	// Centering the window
 	int width = w.frameGeometry().width();
 	int height = w.frameGeometry().height();
 	

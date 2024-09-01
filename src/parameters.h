@@ -9,7 +9,7 @@ namespace param {
 // Made for extensibility. If you wanna add more robots, you can describe it's parameters here.
 struct Robot
 {
-	Robot(std::initializer_list<double> a_list, 
+	Robot(std::initializer_list<double> a_list,
 		std::initializer_list<double> d_list,
 		std::initializer_list<double> alpha_list)
 	{

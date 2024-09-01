@@ -15,12 +15,12 @@ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-		parameters.h
-		kinematics.h 
-		kinematics.cpp
+		src/main.cpp
+		src/mainwindow.cpp
+		src/mainwindow.h
+		src/parameters.h
+		src/kinematics.h 
+		src/kinematics.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -46,7 +46,12 @@ else()
     endif()
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Eigen3::Eigen)
+set(COMPONENTS
+	Qt${QT_VERSION_MAJOR}::Widgets
+	Eigen3::Eigen
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${COMPONENTS})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
